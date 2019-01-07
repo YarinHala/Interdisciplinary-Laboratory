@@ -1,0 +1,17 @@
+{
+  "name": "visual",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+     "start": "node index.js"
+  },
+  "author": "bantihon",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "mongoose": "^5.4.2",
+    "promise": "^8.0.2"
+  }
+}
