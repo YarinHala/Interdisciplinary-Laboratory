@@ -7,7 +7,7 @@ var song = require('../schemas/song'),
 
 
 console.log('connect to db');
-mongoose.connect(mongoDB);
+mongoose.connect(mongoDB,{ useNewUrlParser: true });
 mongoose.Promise = global.Promise;
 
 /*Get connection*/
@@ -18,7 +18,20 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 module.exports =  class Data{
     
-    
+    topOne(obj){
+        let topindex;
+        let topval = 0;
+        for(let i in obj){
+            console.log(obj[i].val[0]);  
+            if(obj[i].val[0] !== null && obj[i].val[0] > topval ){
+                topval = obj[i].val[0];
+                topindex=i; 
+            }
+        }
+        console.log(obj[topindex]);
+        return obj[topindex]; 
+    }
+
     checkWordIsInAraay(Araay,word){
         for(let i in Araay){
             if(typeof(Araay[i])==='string'){
@@ -231,6 +244,156 @@ module.exports =  class Data{
         })    
     }
 
+    async motionThrowYears(year,end){
+        let temp_top3 = [{name : 'Anger', val : []},
+        {name : 'Sadness' , val : []},
+        {name : 'Tentative' ,val: []},
+        {name : 'Joy' , val : []},
+        {name : 'Analytical' , val : []},
+        {name : 'Fear' , val : []},
+        {name : 'Confident' , val : []},
+        {name : 'none' , val : []},
+        ];
 
+        let top3 = [];
+        let limit = end-year;
+        let current_year = Number(year);
+        let end_year = Number(end);
+        let s_rock = 0,s_pop = 0,s_hiphop = 0,s_rap = 0,s_dance = 0
+        let s_country=0,s_rnb=0,s_soul=0,s_plok=0,s_jazz=0,s_house=0,s_trance = 0;
+        let motionArray = [0,0,0,0,0,0,0,0]
+        let arrayByMotion = []; 
+
+        for(let i =0 ; i <= limit+1 ;i++){
+            let data = await song.find({year:`${current_year+i}`});
+            if((current_year+i) <= end_year){
+                    for(let index in data){ 
+                        if(data[index].lyrics_emotion =='Anger')
+                            motionArray[0]+=1;
+                        if(data[index].lyrics_emotion =='Sadness')
+                            motionArray[1]+=1;
+                        if(data[index].lyrics_emotion =='Tentative')  
+                            motionArray[2]+=1;
+                        if(data[index].lyrics_emotion =='Joy')
+                            motionArray[3]+=1;
+                        if(data[index].lyrics_emotion =='Analytical')
+                            motionArray[4]+=1;
+                        if(data[index].lyrics_emotion =='Fear')
+                            motionArray[5]+=1;
+                        if(data[index].lyrics_emotion =='Confident')
+                            motionArray[6]+=1;
+                        if(data[index].lyrics_emotion =='none')
+                            motionArray[7]+=1;
+                    }
+
+                temp_top3[0].val.push(motionArray[0]);
+                temp_top3[1].val.push(motionArray[1]);
+                temp_top3[2].val.push(motionArray[2]);
+                temp_top3[3].val.push(motionArray[3]);
+                temp_top3[4].val.push(motionArray[4]);
+                temp_top3[5].val.push(motionArray[5]);
+                temp_top3[6].val.push(motionArray[6]);
+                temp_top3[7].val.push(motionArray[7]);
+
+                for (let i = 0; i < motionArray.length ;  i++) {
+                    motionArray[i] = 0;                           
+                }
+             }
+        } 
+
+
+        var sum = 0;
+        for (let i = 0; i < limit+1 ;  i++) {
+
+
+            for(let j = 0; j < temp_top3.length ; j++){
+
+
+                if(temp_top3[j].val[i] != null){
+
+
+                    sum +=  temp_top3[j].val[i];
+                    console.log(temp_top3[j].val[i]);
+                    console.log(sum);
+
+                }
+            }
+            sum/=100;
+            console.log(sum);
+
+            for(let j = 0; j < temp_top3.length ; j++){
+
+
+                if(temp_top3[j].val[i] != null){
+
+                    temp_top3[j].val[i] = Math.round(temp_top3[j].val[i]/sum);
+                    
+                    console.log(temp_top3[j].val[i]);
+                }
+            }               
+            sum=0;
+        }
+
+
+
+        var thereIsOne = false;
+        //console.log(temp_top3);
+        for(let l = 0 ; l < limit+1 ; l++){
+            //console.log("----------aary + top3----------");
+            arrayByMotion = [temp_top3[0].val[l],
+                            temp_top3[1].val[l],
+                            temp_top3[2].val[l],
+                            temp_top3[3].val[l],
+                            temp_top3[4].val[l],
+                            temp_top3[5].val[l],
+                            temp_top3[6].val[l],
+                            temp_top3[7].val[l]];
+           
+            top3 = this.populateTree(this.sortArrey(arrayByMotion));
+            
+            for (let i = 0; i < temp_top3.length ;  i++) {
+
+                for(let j = 0; j < top3.length ; j++){
+
+                    if(temp_top3[i].val[l] == top3[j] )
+                    {
+                        
+                        thereIsOne = true;  
+                    }
+                }
+
+                if(!thereIsOne){
+                    //console.log(temp_top3[i].val[l] +'!=' +top3[j]);
+                    temp_top3[i].val[l] = null;
+                   
+
+                }
+                thereIsOne = false;
+                   
+            }
+        }
+    
+
+    console.log("---------------------------");
+    console.log(temp_top3);
+    console.log("---------------------------");
+    return new Promise((resolve, reject)=>{
+    resolve(temp_top3);
+    })
+    }
+
+    async statsForYear(year){
+        let topforyear = [];
+        let motionarray = await this.motionThrowYears(year,year);
+        let genrearray = await this.top3Gneres(year,year);
+        console.log('------------------------here-------------------');
+        topforyear.push(this.topOne(motionarray));
+        topforyear.push(this.topOne(genrearray));
+        console.log(topforyear);
+        return new Promise((resolve, reject)=>{
+            resolve(topforyear);
+        })
+
+    }
 
 }

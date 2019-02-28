@@ -52,25 +52,64 @@ app.get('/allSongs',(req,res) =>{
             });
 });
 
+app.get('/motionThrowYears/:start/:end',(req,res) =>{
+    let start   = req.params.start;
+    let end     = req.params.end;
+
+    dataservice.motionThrowYears(start,end)
+        .then(
+            (data)=>{
+                if(!data.length){
+                    console.log('no data returnd');
+                    res.status(404).jason('no data returnd or no db avileble');
+
+                } else{
+                    res.set('Content-Type', 'application/json');
+                    res.set('header-One' , 'getAllCatagories');
+                    res.status(200).json(data);                
+                }
+            },(error)=> {
+                console.log(error);   
+        });
+});
+
+
+app.get('/statsForYear/:year',(req,res) =>{
+    let year    = req.params.year;
+    dataservice.statsForYear(year)
+        .then(
+            (data)=>{
+                if(!data.length){
+                    console.log('no data returnd');
+                    res.status(404).jason('no data returnd or no db avileble');
+
+                } else{
+                    res.set('Content-Type', 'application/json');
+                    res.set('header-One' , 'getAllCatagories');
+                    res.status(200).json(data);                
+                }
+            },(error)=> {
+                console.log(error);   
+        });
+});
+
 app.get('/top3Gneres/:year/:end',(req,res) =>{
     console.log('GET - /top3Gneres/:year');
-    let year = req.params.year;
-    let end = req.params.end;
-    console.log(year);
-
+    let year    = req.params.year;
+    let end     = req.params.end;
     dataservice.top3Gneres(year,end)
         .then(
-            (data) => {
-                if (!data.length) {
+            (data) =>{
+                if (!data.length){
                     console.log('no data return');
-                    res.status(404).json('no data return or no db is abvileble');
+                    res.status(404).json('no data returnd or no db is avileble');
 
-                } else {
+                } else{
                     res.set('Content-Type', 'application/json');
                     res.set('header-One' , 'getAllCatagories');
                     res.status(200).json(data);
                 }
-            }, (error) => {
+            }, (error) =>{
                 console.log(error);
             });
 });
