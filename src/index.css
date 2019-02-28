@@ -53,8 +53,8 @@ div section{
   background-position: center;
   background-size:cover;
 }
-
 #root div div div:nth-child(4) section{
+
   height: 100%;
   width: 100%;
   background-image: url("./Images/bg2.png");

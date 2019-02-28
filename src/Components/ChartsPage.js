@@ -160,9 +160,9 @@ class ChartsPage extends React.Component{
     if('Bill Clinton' === whoHasBeemClicked)
       array = [1993,1994,1995,1996,1997,1998,1999,2000]
     if('George W. Bush' === whoHasBeemClicked)
-      array = [2001,2002,2003,2004,2005,2006,2007,2008,2009]
+      array = [2001,2002,2003,2004,2005,2006,2007,2008]
     if('Barack Obama' === whoHasBeemClicked)
-      array = [2010,2011,2012,2013,2014,2015,2016]
+      array = [2009,2010,2011,2012,2013,2014,2015,2016]
     if('Donald Trump' === whoHasBeemClicked)
       array = [2017,2018]
 

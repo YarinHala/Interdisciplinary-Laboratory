@@ -81,8 +81,8 @@ import PartyState from "./PartyState.js"
 
       const GeorgeHWBus = [1989,1990,1991,1992];
       const BillClinton = [1993,1994,1995,1996,1997,1998,1999,2000];
-      const GeorgeWBush = [2001,2002,2003,2004,2005,2006,2007,2008,2009];
-      const BarackObama = [2010,2011,2012,2013,2014,2015,2016];
+      const GeorgeWBush = [2001,2002,2003,2004,2005,2006,2007,2008];
+      const BarackObama = [2009,2010,2011,2012,2013,2014,2015,2016];
       const DonaldTrump = [2017,2018];
 
       if(presedentName === "GeorgeHWBus"){
@@ -134,11 +134,11 @@ import PartyState from "./PartyState.js"
         .then((Response)=>Response.json())
         .then((req)=>{
 
-            var arrayR = [1989,1990,1991,1992,2001,2002,2003,2004,2005,2006,2007,2008,2009,2017,2018]
-            var arrayD = [1993,1994,1995,1996,1997,1998,1999,2000,2010,2011,2012,2013,2014,2015,2016]
+            var arrayR = [1989,1990,1991,1992,2001,2002,2003,2004,2005,2006,2007,2008,2017,2018]
+            var arrayD = [1993,1994,1995,1996,1997,1998,1999,2000,2009,2010,2011,2012,2013,2014,2015,2016]
 
           
-            for (var i = 0 ; i < 15; i++) {
+            for (var i = 0 ; i < 14; i++) {
             
               if(arrayR[i] === num){
                 //this.state.RepublicanState[0].emotion = req[0].name;
@@ -158,7 +158,7 @@ import PartyState from "./PartyState.js"
                 });
               }
           }
-            for (var i = 0 ; i < 15; i++) {
+            for (var i = 0 ; i < 16; i++) {
           
               if(arrayD[i] === num){
                 
@@ -226,8 +226,8 @@ import PartyState from "./PartyState.js"
 
   const GeorgeHWBus = [1989,1990,1991,1992];
   const BillClinton = [1993,1994,1995,1996,1997,1998,1999,2000];
-  const GeorgeWBush = [2001,2002,2003,2004,2005,2006,2007,2008,2009];
-  const BarackObama = [2010,2011,2012,2013,2014,2015,2016];
+  const GeorgeWBush = [2001,2002,2003,2004,2005,2006,2007,2008];
+  const BarackObama = [2009,2010,2011,2012,2013,2014,2015,2016];
   const DonaldTrump = [2017,2018];
 
 
