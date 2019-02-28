@@ -1,12 +1,11 @@
 import React from "react";
 import { Bar } from "react-chartjs-2";
 import { MDBContainer } from "mdbreact";
-
+import PicturesNav from "./PicturesNav.js"
 
 class ChartsPage extends React.Component{
     constructor(props) {
     super(props);
-    //console.log(props);
     this.state = {
       dataBar:{},
       dataBar2: {
@@ -15,13 +14,19 @@ class ChartsPage extends React.Component{
       },
       barChartOptions: {
         legend: {
-        display: false
+        display: true,
+            labels: {
+                fontSize: 15
+            }
           },
         responsive: true,
         maintainAspectRatio: false,
         scales: {
           xAxes: [
               {
+                ticks: {
+                fontSize: 20
+                 },
                 barPercentage: 1.0,
                 gridLines: {
                   display: true,
@@ -31,11 +36,13 @@ class ChartsPage extends React.Component{
             ],
           yAxes: [
             {
+             
               gridLines: {
                 display: true,
                 color: "rgba(0, 0, 0, 0.1)"
               },
               ticks: {
+                fontSize: 20,
                 min: 0,
                 max: 50,
                 callback: function (value) {
@@ -43,6 +50,7 @@ class ChartsPage extends React.Component{
                 }
               },
               scaleLabel: {
+                  fontSize: 20,
                   display: true,
                   labelString: 'Percentage',
               }
@@ -51,16 +59,12 @@ class ChartsPage extends React.Component{
         }
       }
     }
-
-
-
+    this.chart = React.createRef();
     this.presidentChanged = this.presidentChanged.bind(this);
   }
 
-
   componentWillMount() {
 
-    
     fetch('https://data-visualization-service.herokuapp.com/top3Gneres/1989/1992')
     .then((Response)=>Response.json())
     .then((req)=>{
@@ -147,8 +151,8 @@ class ChartsPage extends React.Component{
       });
   }
   
-  presidentChanged(whoHasBeemClicked){
-    console.log(whoHasBeemClicked);
+  presidentChanged(bgColor,whoHasBeemClicked){
+    
     var array  = [];
 
     if('George H. W. Bush' === whoHasBeemClicked)
@@ -158,12 +162,11 @@ class ChartsPage extends React.Component{
     if('George W. Bush' === whoHasBeemClicked)
       array = [2001,2002,2003,2004,2005,2006,2007,2008,2009]
     if('Barack Obama' === whoHasBeemClicked)
-      array = [2010,2011,2012,2013,2014,2015,2016,]
+      array = [2010,2011,2012,2013,2014,2015,2016]
     if('Donald Trump' === whoHasBeemClicked)
       array = [2017,2018]
 
-    
-    
+    this.chart.current.handleChangeNav(bgColor,whoHasBeemClicked,0);
 
    fetch('https://data-visualization-service.herokuapp.com/top3Gneres/'+array[0]+'/'+array[array.length-1])
     .then((Response)=>Response.json())
@@ -249,27 +252,32 @@ class ChartsPage extends React.Component{
                     }
               });
       });
+
   }
 
-render(){
+  handleChange(bgColor,presedentName){
+     this.props.handleChange(bgColor,presedentName);
+  }
+
+render() {
     return (
+      <div>
+      <PicturesNav ref={this.chart} id="nav1" handleChange={this.handleChange.bind(this)} />
       <div id="charts">
-      <span id="img_flag_gop">
-        <img alt="flag"  id="gop" src="./Images/gop.png"/>
+      <span className="img_flag_gop">
+        <img alt="flag"  className="gop" src="./Images/gop.png"/>
         <p>Republican</p>
       </span>
       <MDBContainer >   
         <Bar data={this.state.dataBar} options={this.state.barChartOptions} />
       </MDBContainer>
-      <span id="img_flag_dpl">
-        <img alt="flag" id="dpl"  src="./Images/dpl.png"/>
+      <span className="img_flag_dpl">
+        <img alt="flag" className="dpl"  src="./Images/dpl.png"/>
         <p>Democratic</p>
       </span>
       </div>
+      </div>
     );
   }
-
-
-
 }
 export default ChartsPage;

@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-
-
 class PicturesNav extends Component{
  	constructor(props) {
     super(props);
@@ -46,7 +44,7 @@ render(){
 				<p>Bill Clinton</p>
 				<article >
 					<p>
-						Born: June 14, 1946 (age 72)<br/>
+						Born: August 19, 1946 (age 72)<br/>
 						President :42th<br/> 
 						Political party: Democratic<br/>
 					</p>

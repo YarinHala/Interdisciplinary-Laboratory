@@ -34,6 +34,7 @@ div section{
 #root div div div:nth-child(1) section{
   transition: color 1s ease;
   transition: background 1s ease-in-out;
+  background-color: black;
 }
 
 #root div div div:nth-child(2) section{
@@ -68,7 +69,7 @@ h1{
   font-size: 50px;
   color:black;
   z-index: 100;
-  top:-45px;
+  top:-15px;
   
 }
 
@@ -90,7 +91,7 @@ h3{
 
 }
 
-#presedentName{
+.presedentName{
   left: 10%;
   font-size: 25px;
   transition: left 0.5s ease-in-out
@@ -188,9 +189,132 @@ h3{
   border-color: #cfcfd1;
 }
 
+#pageCompare{
+  position: relative;
+  top: 10%;
+  display: flex;
+  justify-content: space-between;
+}
+
+#pageCompare p{
+  display: block;
+  position: relative;
+  top: 140px;
+  font-size: 25px;
+
+}
+
+#pageCompare img{
+    margin-top: 10px;
+}
+
+#pageCompare .navDemocratic img{
+    margin-top: 55px;
+}
+
+#compare{
+  display: flex;
+  justify-content: space-between;
+  width: 40%;
+  text-align: center;
+}
+
+.PartyState{
+  font-size: 25px;
+  position: relative;
+  top: 10%;
 
 
-#img_flag_gop{
+}
+
+.PartyState span{
+  display: block;
+  margin-top: 110px;
+  width: 200px;
+}
+
+
+#nav3 span:nth-child(1){
+  position: relative;
+  display: block;
+  left: 50%;
+  top:-10%;
+}
+
+#nav4 span:nth-child(1){
+  position: relative;
+  display: block;
+  left: -50%;
+    top:-10%;
+
+}
+
+#nav3 .navRepublican{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  left: 50%;
+  top: 80px;
+}
+
+
+
+#nav4 .navDemocratic{
+  display: block;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  left: -50%;
+  top: 80px;
+}
+
+.buttonList{
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  top: 35%;
+}
+
+.button{
+  margin-top: 10px;
+  height: 40px;
+  width: 100px;
+  background-color: #a0a0a0;
+  border-radius: 18px ;
+  border-color: white;
+  color:white;
+  border-style: solid;
+  border-width: 3px;
+  font-size: 18px;
+  font-family: verdana;
+  transition:opacity 1s ease-in-out;
+}
+
+.genrePic{
+  width: 100px;
+  height: 100px;
+  display: block;
+  opacity: 1;
+  transition:opacity 1s ease-in-out;
+  position: relative;
+  left: 20%;
+  top: -10px;
+}
+
+.emotionPic{
+  width: 100px;
+  height: 100px;
+  display: block;
+  opacity: 1;
+  transition:opacity 1s ease-in-out;
+  position: relative;
+  left: 20%;
+  top: -10px;
+}
+
+
+.img_flag_gop{
   width: 10%;
   height:15%;
   position: absolute;
@@ -199,7 +323,7 @@ h3{
   transition: opacity .55s ease-in-out
 }
 
-#img_flag_dpl{
+.img_flag_dpl{
   width: 10%;
   height:15%;
   position: absolute;
@@ -210,7 +334,7 @@ h3{
 
 }
 
-#gop{
+.gop{
   width: 100px;
   position: absolute;
   height: 100px;
@@ -218,7 +342,7 @@ h3{
   transition: opacity .55s ease-in-out
 }
 
-#dpl{
+.dpl{
   position: absolute;
   width: 100px;
   height: 100px; 
@@ -228,15 +352,18 @@ h3{
 
 #charts{
   position: relative;
-  top: 5%;
+  top: 120px;
   width: 100%;
-  height:85%;
+  height:100%;
 }
 
+.container{
+  height: 330px !important ;
+}
 
 #charts span p{
   position: absolute;
-  top:120%;
+  top:200%;
   left: 10%;
 }
 
@@ -251,9 +378,10 @@ h3{
 .img_nav:hover{
   border-style: solid;
   border-color: white;
+
 }
 
-#presedentSction{
+.presedentSction{
   transition: background-image 1s ease-in-out;
 }
 
@@ -314,8 +442,13 @@ h3{
     font-size: 15px;
   }
   h2{font-size: 30px;}
-  #img_flag_gop{display: none;}
-  #img_flag_dpl{display: none;}
+  .img_flag_gop{display: none;}
+  .img_flag_dpl{display: none;}
+  #compare{
+      display: flex;
+      justify-content: space-between;
+      width: 30%;
+    }
 }
 
 @media(max-width: 1000px) {
@@ -324,7 +457,7 @@ h3{
   h1{font-size: 20px;top:5%;}
   h2{font-size: 20px;}
   .img_nav{width: 15%;height:15%;}
-  #presedentName{  font-size: 15px;}
+  .presedentName{  font-size: 15px;}
  
   }
 
@@ -340,6 +473,12 @@ h3{
     .div_imgs span:nth-child(3) {top:50%;height: 30%;width: 20%;opacity: 1;background-image: url("./Images/gw_hover.png");}
     .div_imgs span:nth-child(4) {top:50%;height: 30%;width: 20%;opacity: 1;background-image: url("./Images/bc_hover.png");}
     .div_imgs span:nth-child(5) {top:50%;height: 30%;width: 20%;opacity: 1;background-image: url("./Images/ghw_hover.png");}
-     #presedentName{  font-size:10px;}
+     .presedentName{  font-size:10px;}
+
+    #compare{
+      display: flex;
+      justify-content: space-between;
+      width: 20%;
+    }
   }
 
